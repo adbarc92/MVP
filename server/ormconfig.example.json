@@ -1,0 +1,13 @@
+{
+  "type": "FILL_ME_IN",
+  "host": "localhost",
+  "port": 3306,
+  "username": "FILL_ME_IN",
+  "password": "FILL_ME_IN",
+  "database": "outliner",
+  "synchronize": true,
+  "logging": false,
+  "entities": ["src/models/**/*.ts"],
+  "migrations": ["src/migration/**/*.ts"],
+  "subscribers": ["src/subscriber/**/*.ts"]
+}
