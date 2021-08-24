@@ -4,24 +4,18 @@ import {
   Column,
   UpdateDateColumn,
   CreateDateColumn,
-  OneToMany,
-  OneToOne,
-  JoinColumn,
 } from 'typeorm';
-import { Chapter } from './Chapter';
-import { WritingStats } from './WritingStats';
 
 @Entity
-export class Book {
+export class Section {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  // @ManyToOne((type) => WritingStats, stats=>)
-  // @JoinColumn()
-	// stats: number;
+  // stats_id
 
-	@OneToMany((type) => Chapter, chapter => chapter.book)
-	chapters: Chapter[];
+  // book_id
+
+  // pov_char
 
   @CreateDateColumn({ type: 'timestamp' })
   created_at: Date;
@@ -33,10 +27,7 @@ export class Book {
   name: string;
 
   @Column({ type: 'int' })
-  sequence_num: number; // Less than num parts
-
-  // @Column({ type: 'int' })
-  // num_parts: number;
+  sequence_num: number;
 
   @Column({ type: 'text' })
   text_body: string;
