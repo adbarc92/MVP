@@ -33,17 +33,17 @@ export class Section {
   tag!: Tag;
 
   @CreateDateColumn({ type: 'timestamp' })
-  created_at!: Date;
+  createdAt!: Date;
 
   @UpdateDateColumn({ type: 'timestamp' })
-  updated_at!: Date;
+  updatedAt!: Date;
 
   @Column({ type: 'text' })
   name!: string;
 
   @Column({ type: 'int' })
-  sequence_num!: number;
+  sequenceNum!: number;
 
   @Column({ type: 'text' })
-  text_body!: string;
+  textBody!: string;
 }

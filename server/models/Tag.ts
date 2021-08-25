@@ -2,7 +2,8 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   OneToOne,
-  JoinColumn
+  JoinColumn,
+  Column
 } from 'typeorm';
 import { Node } from './Node';
 import { Section } from './Section';
@@ -20,5 +21,6 @@ export class Tag {
   @JoinColumn()
   node!: Node;
 
-  shouldAdd!: boolean;
+  @Column()
+  shouldKeep!: boolean;
 }

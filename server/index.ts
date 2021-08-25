@@ -19,11 +19,24 @@ const init = async () => {
     .connect()
     .then((connection) => {
       console.log('Connected!');
-      // console.log('Connection:', connection);
     })
     .catch((err: Error) => {
       console.error(err);
     });
+
+  // app.get('/book/:id', (req: Request, res: Response) => {});
+  // app.post('/book/:id', (req: Request, res: Response) => {
+
+  // });
+  // app.put('/book/:id', (req: Request, res: Response) => {});
+
+  // app.get('/chapter/:id', (req: Request, res: Response) => {});
+  // app.post('/chapter/:id', (req: Request, res: Response) => {});
+  // app.put('/chapter/:id', (req: Request, res: Response) => {});
+
+  // app.get('/section/:id', (req: Request, res: Response) => {});
+  // app.post('/section/:id', (req: Request, res: Response) => {});
+  // app.put('/section/:id', (req: Request, res: Response) => {});
 };
 
 const start = async () => {
