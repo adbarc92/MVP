@@ -6,8 +6,11 @@ import {
   CreateDateColumn,
   ManyToOne,
   JoinColumn,
+  OneToMany,
 } from 'typeorm';
 import { Book } from './Book';
+import { Section } from './Section';
+import { WritingStats } from './WritingStats';
 
 @Entity
 export class Chapter {
@@ -16,10 +19,24 @@ export class Chapter {
 
   // stats_id
 
-  // book_id
-  @ManyToOne((type) => Book, (book) => book.chapters)
+  @ManyToOne((type) => Book, (book) => book.chapters, {
+    cascade: true,
+  })
   @JoinColumn()
-  book: Book;
+  book!: Book;
+
+  @ManyToOne((type) => WritingStats, (stats) => stats.sections)
+  @JoinColumn()
+  stats!: WritingStats;
+
+  @OneToMany(
+    (type) => Section,
+    (section: Section) => section.chapter,
+    {
+      cascade: true,
+    }
+  )
+  sections!: Section[];
 
   @CreateDateColumn({ type: 'timestamp' })
   created_at!: Date;
@@ -31,7 +48,7 @@ export class Chapter {
   name!: string;
 
   @Column({ type: 'int' })
-  sequence_num!: number; // Less than num parts
+  sequence_num!: number;
 
   @Column({ type: 'int' })
   num_parts!: number;
