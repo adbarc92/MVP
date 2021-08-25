@@ -1,8 +1,21 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import morgan from 'morgan';
 
-import { ConnectionManager } from 'typeorm';
+import { ConnectionManager, getConnection } from 'typeorm';
 import typeOrmConfig from './config';
+
+import { BookPost, GetOneParams, BookPut } from './types';
+import {
+  validateRequestStrings,
+  validateRequestNumbers
+} from './utils';
+
+import { Book } from './models/Book';
+import { Chapter } from './models/Chapter';
+import { Node } from './models/Node';
+import { Section } from './models/Section';
+import { Tag } from './models/Tag';
+import { WritingStats } from './models/WritingStats';
 
 const app = express();
 const PORT = 3000;
@@ -17,26 +30,139 @@ const connection = connectionManager.create(typeOrmConfig);
 const init = async () => {
   connection
     .connect()
-    .then((connection) => {
+    .then(() => {
       console.log('Connected!');
     })
     .catch((err: Error) => {
       console.error(err);
     });
 
-  // app.get('/book/:id', (req: Request, res: Response) => {});
-  // app.post('/book/:id', (req: Request, res: Response) => {
+  app.post(
+    '/books',
+    async (
+      req: Request<null, null, BookPost, null>,
+      res: Response
+    ) => {
+      const body = req.body;
+      const name = body?.name;
+      const textBody = body?.textBody;
 
-  // });
-  // app.put('/book/:id', (req: Request, res: Response) => {});
+      try {
+        const error = validateRequestStrings(name, textBody);
+        if (error) {
+          return res
+            .status(400)
+            .send('Error: name and textBody must be strings');
+        }
+
+        const bookRepo = getConnection().getRepository(Book);
+        const newBook = bookRepo.create({ name, textBody });
+        return await bookRepo.save(newBook);
+      } catch (e) {
+        console.error(e);
+        res.status(500).send(e);
+      }
+    }
+  );
+
+  app.get(
+    '/books/:id',
+    async (
+      req: Request<GetOneParams, null, null, null>,
+      res: Response
+    ) => {
+      const params = req.params;
+      const id = params?.id;
+      try {
+        const error = validateRequestStrings(id);
+        if (error) {
+          return res
+            .status(400)
+            .send('Error: name and textBody must be strings');
+        }
+
+        const bookRepo = getConnection().getRepository(Book);
+        return await bookRepo.findOne(id);
+      } catch (e) {
+        console.error(e);
+        res.status(500).send(e);
+      }
+    }
+  );
+
+  app.get(
+    '/books',
+    async (req: Request<null, null, null, null>, res: Response) => {
+      try {
+        const bookRepo = getConnection().getRepository(Book);
+        return await bookRepo.find();
+      } catch (e) {
+        console.error(e);
+        res.status(500).send(e);
+      }
+    }
+  );
+
+  app.put(
+    '/book/:id',
+    async (
+      req: Request<GetOneParams, null, Partial<BookPut>, null>,
+      res: Response
+    ) => {
+      const params = req.params;
+      const id = params?.id;
+
+      const body = req.body;
+      const name = body?.name;
+      const sequenceNum = body?.sequenceNum;
+      const textBody = body?.textBody;
+
+      try {
+        const paramsError = validateRequestStrings(id);
+        if (paramsError) {
+          return res.status(400).send('Error: id must be strings');
+        }
+
+        const bodyError =
+          validateRequestStrings(name, textBody) &&
+          validateRequestNumbers(sequenceNum);
+        if (bodyError) {
+          return res
+            .status(400)
+            .send('Error: name and textBody must be strings');
+        }
+
+        const bookRepo = getConnection().getRepository(Book);
+        const oldBook = await bookRepo.findOne(id);
+        if (oldBook) {
+          const newBook = bookRepo.merge(oldBook, {
+            name,
+            sequenceNum,
+            textBody
+          });
+          return await bookRepo.save(newBook);
+        } else {
+          const newBook = bookRepo.create({ name, textBody });
+          return await bookRepo.save(newBook);
+        }
+      } catch (e) {
+        console.error(e);
+        res.status(500).send(e);
+      }
+    }
+  );
 
   // app.get('/chapter/:id', (req: Request, res: Response) => {});
   // app.post('/chapter/:id', (req: Request, res: Response) => {});
   // app.put('/chapter/:id', (req: Request, res: Response) => {});
 
+  // app.post('/section', (req: Request, res: Response) => {});
   // app.get('/section/:id', (req: Request, res: Response) => {});
-  // app.post('/section/:id', (req: Request, res: Response) => {});
   // app.put('/section/:id', (req: Request, res: Response) => {});
+
+  // app.post('/node', (req: Request, res: Response) => {});
+  // app.get('/node/:id', (req: Request, res: Response) => {});
+  // app.put('/node/:id', (req: Request, res: Response) => {});
 };
 
 const start = async () => {
