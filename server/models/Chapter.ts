@@ -6,7 +6,7 @@ import {
   CreateDateColumn,
   ManyToOne,
   JoinColumn,
-  OneToMany,
+  OneToMany
 } from 'typeorm';
 import { Book } from './Book';
 import { Section } from './Section';
@@ -20,22 +20,16 @@ export class Chapter {
   // stats_id
 
   @ManyToOne((type) => Book, (book) => book.chapters, {
-    cascade: true,
+    cascade: true
   })
   @JoinColumn()
   book!: Book;
 
-  @ManyToOne((type) => WritingStats, (stats) => stats.sections)
+  @ManyToOne((type) => WritingStats, (stats) => stats.chapters)
   @JoinColumn()
   stats!: WritingStats;
 
-  @OneToMany(
-    (type) => Section,
-    (section: Section) => section.chapter,
-    {
-      cascade: true,
-    }
-  )
+  @OneToMany((type) => Section, (section: Section) => section.chapter)
   sections!: Section[];
 
   @CreateDateColumn({ type: 'timestamp' })

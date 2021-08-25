@@ -7,7 +7,7 @@ import {
   OneToMany,
   OneToOne,
   JoinColumn,
-  ManyToOne,
+  ManyToOne
 } from 'typeorm';
 import { Chapter } from './Chapter';
 import { WritingStats } from './WritingStats';
@@ -17,20 +17,15 @@ export class Book {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @ManyToOne((type) => WritingStats, (stats) => stats.books)
+  @ManyToOne((type) => WritingStats, (stats) => stats.books, {
+    cascade: true
+  })
   @JoinColumn()
   stats!: WritingStats;
 
-  @OneToMany((type) => Chapter, (chapter: Chapter) => chapter.book, {
-    cascade: true,
-  })
+  @OneToMany((type) => Chapter, (chapter: Chapter) => chapter.book)
   chapters!: Chapter[];
 
-  @ManyToOne(
-    (type) => WritingStats,
-    (writingStats) => writingStats.books,
-    { cascade: true }
-  )
   @CreateDateColumn({ type: 'timestamp' })
   created_at!: Date;
 

@@ -6,9 +6,11 @@ import {
   CreateDateColumn,
   ManyToOne,
   JoinColumn,
+  OneToOne
 } from 'typeorm';
 import { Chapter } from './Chapter';
 import { WritingStats } from './WritingStats';
+import { Tag } from './Tag';
 
 @Entity()
 export class Section {
@@ -22,10 +24,13 @@ export class Section {
   stats!: WritingStats;
 
   @ManyToOne((type) => Chapter, (chapter) => chapter.sections, {
-    cascade: true,
+    cascade: true
   })
   @JoinColumn()
   chapter!: Chapter;
+
+  @OneToOne((type) => Tag, { cascade: true })
+  tag!: Tag;
 
   @CreateDateColumn({ type: 'timestamp' })
   created_at!: Date;

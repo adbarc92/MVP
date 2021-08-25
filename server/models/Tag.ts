@@ -2,13 +2,13 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   OneToOne,
-  JoinColumn,
+  JoinColumn
 } from 'typeorm';
 import { Node } from './Node';
 import { Section } from './Section';
 
 @Entity()
-export class Section_Node {
+export class Tag {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 

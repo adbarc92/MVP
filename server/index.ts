@@ -1,15 +1,8 @@
 import express from 'express';
 import morgan from 'morgan';
 
-import { Book } from './models/Book';
-import { Chapter } from './models/Chapter';
-import { Node } from './models/Node';
-import { Section } from './models/Section';
-import { Section_Node } from './models/Section_Node';
-import { WritingStats } from './models/WritingStats';
-
-import { ConnectionManager, ConnectionOptions } from 'typeorm';
-import ormconfig from './ormconfig.json';
+import { ConnectionManager } from 'typeorm';
+import typeOrmConfig from './config';
 
 const app = express();
 const PORT = 3000;
@@ -19,25 +12,25 @@ app.use(express.urlencoded({ extended: true }));
 app.use(morgan('common'));
 
 const connectionManager = new ConnectionManager();
-
-// const connectionOptions: any = ormconfig;
-
-const connection = connectionManager.create({ ...ormconfig });
+const connection = connectionManager.create(typeOrmConfig);
 
 const init = async () => {
   connection
     .connect()
     .then((connection) => {
       console.log('Connected!');
-      console.log('Connection:', connection);
+      // console.log('Connection:', connection);
     })
-    .catch((err) => {
+    .catch((err: Error) => {
       console.error(err);
     });
 };
 
-init();
+const start = async () => {
+  await init();
+  app.listen(PORT, () => {
+    console.log(`Server running on port:${PORT}`);
+  });
+};
 
-app.listen(PORT, () => {
-  console.log(`Server running on port:${PORT}`);
-});
+start();

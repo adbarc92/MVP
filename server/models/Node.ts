@@ -4,7 +4,10 @@ import {
   Column,
   UpdateDateColumn,
   CreateDateColumn,
+  OneToOne
 } from 'typeorm';
+
+import { Tag } from './Tag';
 
 @Entity()
 export class Node {
@@ -16,6 +19,9 @@ export class Node {
 
   @UpdateDateColumn({ type: 'timestamp' })
   updated_at!: Date;
+
+  @OneToOne((type) => Tag, { cascade: true })
+  tag!: Tag;
 
   @Column({ type: 'text' })
   name!: string;

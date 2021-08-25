@@ -2,7 +2,7 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  OneToMany,
+  OneToMany
 } from 'typeorm';
 import { Book } from './Book';
 import { Chapter } from './Chapter';
@@ -13,19 +13,13 @@ export class WritingStats {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @OneToMany((type) => Book, (book) => book.stats, {
-    cascade: true,
-  })
+  @OneToMany((type) => Book, (book) => book.stats)
   books!: Book[];
 
-  @OneToMany((type) => Chapter, (chapter) => chapter.stats, {
-    cascade: true,
-  })
+  @OneToMany((type) => Chapter, (chapter) => chapter.stats)
   chapters!: Chapter[];
 
-  @OneToMany((type) => Section, (section) => section.stats, {
-    cascade: true,
-  })
+  @OneToMany((type) => Section, (section) => section.stats)
   sections!: Section[];
 
   @Column({ type: 'int' })
