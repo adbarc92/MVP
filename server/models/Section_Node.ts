@@ -7,7 +7,7 @@ import {
 import { Node } from './Node';
 import { Section } from './Section';
 
-@Entity
+@Entity()
 export class Section_Node {
   @PrimaryGeneratedColumn('uuid')
   id!: string;

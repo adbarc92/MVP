@@ -12,7 +12,7 @@ import { Book } from './Book';
 import { Section } from './Section';
 import { WritingStats } from './WritingStats';
 
-@Entity
+@Entity()
 export class Chapter {
   @PrimaryGeneratedColumn('uuid')
   id!: string;

@@ -8,7 +8,7 @@ import { Book } from './Book';
 import { Chapter } from './Chapter';
 import { Section } from './Section';
 
-@Entity
+@Entity()
 export class WritingStats {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
