@@ -1,5 +1,6 @@
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
+import React from 'react';
 
 const TipTap = (): JSX.Element => {
   const editor = useEditor({

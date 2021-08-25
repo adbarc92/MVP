@@ -56,3 +56,6 @@ bower_components/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+server/ormconfig.json
+server/config.ts
