@@ -20,15 +20,16 @@ app.use(morgan('common'));
 
 const connectionManager = new ConnectionManager();
 
-const connectionOptions: any = ormconfig;
+// const connectionOptions: any = ormconfig;
 
-const connection = connectionManager.create(connectionOptions);
+const connection = connectionManager.create({ ...ormconfig });
 
 const init = async () => {
   connection
     .connect()
     .then((connection) => {
       console.log('Connected!');
+      console.log('Connection:', connection);
     })
     .catch((err) => {
       console.error(err);
@@ -36,3 +37,7 @@ const init = async () => {
 };
 
 init();
+
+app.listen(PORT, () => {
+  console.log(`Server running on port:${PORT}`);
+});
