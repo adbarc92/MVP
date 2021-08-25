@@ -8,7 +8,7 @@ import { Section } from './models/Section';
 import { Section_Node } from './models/Section_Node';
 import { WritingStats } from './models/WritingStats';
 
-import { ConnectionManager, createConnection } from 'typeorm';
+import { ConnectionManager, ConnectionOptions } from 'typeorm';
 import ormconfig from './ormconfig.json';
 
 const app = express();
@@ -20,24 +20,9 @@ app.use(morgan('common'));
 
 const connectionManager = new ConnectionManager();
 
-const connection = connectionManager.create({
-  type: 'postgres',
-  host: 'localhost',
-  port: 5432,
-  username: 'postgres',
-  password: 'postgres',
-  database: 'outliner',
-  entities: [
-    Book,
-    Chapter,
-    Node,
-    Section,
-    Section_Node,
-    WritingStats,
-  ],
-  synchronize: true,
-  logging: false,
-});
+const connectionOptions: any = ormconfig;
+
+const connection = connectionManager.create(connectionOptions);
 
 const init = async () => {
   connection
