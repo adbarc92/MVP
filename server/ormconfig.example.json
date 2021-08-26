@@ -5,7 +5,7 @@
   "username": "FILL_ME_IN",
   "password": "FILL_ME_IN",
   "database": "outliner",
-  "synchronize": true,
+  "synchronize": false,
   "logging": false,
   "entities": ["server/db/models/**/*.ts"],
   "migrations": ["server/db/migration/**/*.ts"],

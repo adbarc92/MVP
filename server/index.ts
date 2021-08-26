@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import morgan from 'morgan';
+import path from 'path';
 
 import { ConnectionManager, getConnection } from 'typeorm';
 import typeOrmConfig from './config';
@@ -30,6 +31,7 @@ const PORT = 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('common'));
+app.use(express.static(path.join(__dirname, '../public/')));
 
 const connectionManager = new ConnectionManager();
 const connection = connectionManager.create(typeOrmConfig);
