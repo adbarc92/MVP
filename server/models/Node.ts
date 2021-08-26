@@ -7,8 +7,6 @@ import {
   OneToOne
 } from 'typeorm';
 
-import { Tag } from './Tag';
-
 @Entity()
 export class Node {
   @PrimaryGeneratedColumn('uuid')
@@ -19,9 +17,6 @@ export class Node {
 
   @UpdateDateColumn({ type: 'timestamp' })
   updatedAt!: Date;
-
-  @OneToOne((type) => Tag, { cascade: true })
-  tag!: Tag;
 
   @Column({ type: 'text' })
   name!: string;

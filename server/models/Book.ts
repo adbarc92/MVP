@@ -4,24 +4,14 @@ import {
   Column,
   UpdateDateColumn,
   CreateDateColumn,
-  OneToMany,
-  OneToOne,
-  JoinColumn,
-  ManyToOne
+  OneToMany
 } from 'typeorm';
 import { Chapter } from './Chapter';
-import { WritingStats } from './WritingStats';
 
 @Entity()
 export class Book {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
-
-  @ManyToOne((type) => WritingStats, (stats) => stats.books, {
-    cascade: true
-  })
-  @JoinColumn()
-  stats!: WritingStats;
 
   @OneToMany((type) => Chapter, (chapter: Chapter) => chapter.book)
   chapters!: Chapter[];
@@ -35,7 +25,7 @@ export class Book {
   @Column({ type: 'text' })
   name!: string;
 
-  @Column({ type: 'int', default: (): number => 0 })
+  @Column({ type: 'int' })
   sequenceNum!: number;
 
   @Column({ type: 'text' })
