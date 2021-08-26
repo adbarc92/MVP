@@ -5,6 +5,7 @@ import NewBookDashboard from './components/NewBookDashboard';
 import BookDisplay from './components/BookDisplay';
 import BookSelect from './components/BookSelect';
 import { Book } from './types';
+import './App.css';
 
 const App = (): JSX.Element => {
   const [books, setBooks] = React.useState<Book[]>([]);
@@ -12,14 +13,20 @@ const App = (): JSX.Element => {
   const [currentBook, setCurrentBook] = useState<Book | null>(null);
 
   useEffect(() => {
-    axios.get('/books').then((results) => {
-      setBooks(results.data);
-      setLoading(false);
-    });
+    axios
+      .get('/books')
+      .then((results) => {
+        setBooks(results.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+      });
   }, []);
 
   return (
-    <div>
+    <div className='app'>
       {loading ? (
         <CircularProgress />
       ) : (
@@ -31,7 +38,7 @@ const App = (): JSX.Element => {
               {books.length ? (
                 <BookSelect setBook={setCurrentBook} books={books} />
               ) : (
-                <NewBookDashboard />
+                <NewBookDashboard setBooks={setBooks} />
               )}
             </>
           )}
