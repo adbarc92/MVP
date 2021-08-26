@@ -23,14 +23,14 @@ export class WritingStats {
   sections!: Section[];
 
   @Column({ type: 'int' })
-  estimated_word_total!: number; // may not keep
+  estimatedWordTotal!: number; // may not keep
 
   @Column({ type: 'time' })
-  writing_time!: number; // ??
+  writingTime!: number; // ??
 
   @Column({ type: 'time' })
-  thinking_time!: number;
+  thinkingTime!: number;
 
   @Column({ type: 'decimal' })
-  dialog_exposition_ratio!: number;
+  dialogExpositionRatio!: number;
 }

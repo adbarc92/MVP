@@ -33,20 +33,17 @@ export class Chapter {
   sections!: Section[];
 
   @CreateDateColumn({ type: 'timestamp' })
-  created_at!: Date;
+  createdAt!: Date;
 
   @UpdateDateColumn({ type: 'timestamp' })
-  updated_at!: Date;
+  updatedAt!: Date;
 
   @Column({ type: 'text' })
   name!: string;
 
-  @Column({ type: 'int' })
-  sequence_num!: number;
-
-  @Column({ type: 'int' })
-  num_parts!: number;
+  @Column({ type: 'int', default: (): number => 0 })
+  sequenceNum!: number;
 
   @Column({ type: 'text' })
-  text_body!: string;
+  textBody!: string;
 }
