@@ -2,7 +2,7 @@ import express, { Request, Response } from 'express';
 import morgan from 'morgan';
 import path from 'path';
 
-import { ConnectionManager, getConnection } from 'typeorm';
+import { ConnectionManager } from 'typeorm';
 import typeOrmConfig from './config';
 
 import {
@@ -29,7 +29,11 @@ app.use(morgan('common'));
 app.use(express.static(path.join(__dirname, '../public/')));
 
 const connectionManager = new ConnectionManager();
-const connection = connectionManager.create(typeOrmConfig);
+
+const connection = connectionManager.create({
+  ...typeOrmConfig,
+  entities: [Book, Chapter, Node, Section]
+});
 
 const init = async () => {
   connection
@@ -61,8 +65,9 @@ const init = async () => {
 
         const bookRepo = connection.getRepository(Book);
         const newBook = bookRepo.create({ name, textBody });
-        const book = await bookRepo.save(newBook);
-        return res.status(201).send(book);
+        await bookRepo.save(newBook);
+        const books = await bookRepo.find();
+        return res.status(201).send(books);
       } catch (e) {
         console.error(e);
         return res.status(500).send(e);
@@ -87,7 +92,7 @@ const init = async () => {
         }
 
         const bookRepo = connection.getRepository(Book);
-        const book = await bookRepo.findOne(id);
+        const book = await bookRepo.findOne(id, { relations: ['chapters'] });
         return res.status(200).send(book);
       } catch (e) {
         console.error(e);
@@ -104,7 +109,8 @@ const init = async () => {
     ): Promise<Response> => {
       try {
         const bookRepo = connection.getRepository(Book);
-        const books = await bookRepo.find();
+        const books = await bookRepo.find({ relations: ['chapters'] });
+        console.log('books:', books);
         return res.status(200).send(books);
       } catch (e) {
         console.error(e);
@@ -124,7 +130,7 @@ const init = async () => {
 
       const body = req.body;
       const name = body?.name;
-      const sequenceNum = body?.sequenceNum;
+      // const sequenceNum = body?.sequenceNum;
       const textBody = body?.textBody;
 
       try {
@@ -133,9 +139,7 @@ const init = async () => {
           return res.status(400).send('Error: id must be strings');
         }
 
-        const bodyError =
-          validateRequestStrings(name, textBody) &&
-          validateRequestNumbers(sequenceNum);
+        const bodyError = validateRequestStrings(name, textBody); // TODO: Validate sequence
         if (bodyError) {
           return res
             .status(400)
@@ -147,7 +151,6 @@ const init = async () => {
         if (oldBook) {
           const newBook = bookRepo.merge(oldBook, {
             name,
-            sequenceNum,
             textBody
           });
           const book = await bookRepo.save(newBook);
@@ -224,7 +227,7 @@ const init = async () => {
         if (error) {
           return res
             .status(400)
-            .send('Error: name and textBody must be strings');
+            .send('Error: name, textBody, and bookId must be strings');
         }
 
         const bookRepo = connection.getRepository(Book);
@@ -238,9 +241,14 @@ const init = async () => {
           name,
           textBody
         });
-        book.chapters = [...book.chapters, newChapter];
+        if (book.chapters) {
+          book.chapters = [...book.chapters, newChapter];
+        } else {
+          book.chapters = [newChapter];
+        }
 
-        const savedBook = await bookRepo.save(book);
+        await connection.manager.save(newChapter);
+        const savedBook = await connection.manager.save(book);
         return res.status(200).send(savedBook);
       } catch (e) {
         console.error(e);
@@ -260,7 +268,7 @@ const init = async () => {
 
       const body = req.body;
       const name = body?.name;
-      const sequenceNum = body?.sequenceNum;
+      // const sequenceNum = body?.sequenceNum;
       const textBody = body?.textBody;
 
       try {
@@ -274,9 +282,9 @@ const init = async () => {
         if (oldChapter) {
           const newChapter = chapterRepo.merge(oldChapter, {
             name: name || oldChapter.name,
-            textBody: textBody || oldChapter.textBody,
-            sequenceNum:
-              parseInt(sequenceNum as string) || oldChapter.sequenceNum
+            textBody: textBody || oldChapter.textBody
+            // sequenceNum:
+            //   parseInt(sequenceNum as string) || oldChapter.sequenceNum
           });
           await chapterRepo.save(newChapter);
           res.status(200).send(newChapter);

@@ -13,7 +13,7 @@ export class Book {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @OneToMany((type) => Chapter, (chapter: Chapter) => chapter.book)
+  @OneToMany(type => Chapter, (chapter: Chapter) => chapter.book)
   chapters!: Chapter[];
 
   @CreateDateColumn({ type: 'timestamp' })
@@ -25,8 +25,8 @@ export class Book {
   @Column({ type: 'text' })
   name!: string;
 
-  @Column({ type: 'int' })
-  sequenceNum!: number;
+  // @Column({ type: 'int' })
+  // sequenceNum!: number;
 
   @Column({ type: 'text' })
   textBody!: string;
