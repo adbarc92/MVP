@@ -5,13 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --mode development",
-    "build:watch": "webpack --mode development --watch"
+    "start": "webpack --mode development --watch",
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@material-ui/core": "^4.12.3",
     "@tiptap/react": "^2.0.0-beta.63",
     "@tiptap/starter-kit": "^2.0.0-beta.99",
     "@types/react": "^17.0.19",

@@ -11,12 +11,9 @@ import {
   BookPut,
   getChapterParams,
   ChapterPost,
-  ChapterPut,
+  ChapterPut
 } from './types';
-import {
-  validateRequestStrings,
-  validateRequestNumbers,
-} from './utils';
+import { validateRequestStrings, validateRequestNumbers } from './utils';
 
 import { Book } from './models/Book';
 import { Chapter } from './models/Chapter';
@@ -49,7 +46,7 @@ const init = async () => {
     async (
       req: Request<null, null, BookPost, null>,
       res: Response
-    ) => {
+    ): Promise<Response> => {
       const body = req.body;
       const name = body?.name;
       const textBody = body?.textBody;
@@ -62,12 +59,13 @@ const init = async () => {
             .send('Error: name and textBody must be strings');
         }
 
-        const bookRepo = getConnection().getRepository(Book);
+        const bookRepo = connection.getRepository(Book);
         const newBook = bookRepo.create({ name, textBody });
-        return await bookRepo.save(newBook);
+        const book = await bookRepo.save(newBook);
+        return res.status(201).send(book);
       } catch (e) {
         console.error(e);
-        res.status(500).send(e);
+        return res.status(500).send(e);
       }
     }
   );
@@ -77,7 +75,7 @@ const init = async () => {
     async (
       req: Request<GetOneParams, null, null, null>,
       res: Response
-    ) => {
+    ): Promise<Response> => {
       const params = req.params;
       const id = params?.id;
       try {
@@ -88,24 +86,29 @@ const init = async () => {
             .send('Error: name and textBody must be strings');
         }
 
-        const bookRepo = getConnection().getRepository(Book);
-        return await bookRepo.findOne(id);
+        const bookRepo = connection.getRepository(Book);
+        const book = await bookRepo.findOne(id);
+        return res.status(200).send(book);
       } catch (e) {
         console.error(e);
-        res.status(500).send(e);
+        return res.status(500).send(e);
       }
     }
   );
 
   app.get(
     '/books',
-    async (req: Request<null, null, null, null>, res: Response) => {
+    async (
+      req: Request<null, null, null, null>,
+      res: Response
+    ): Promise<Response> => {
       try {
-        const bookRepo = getConnection().getRepository(Book);
-        return await bookRepo.find();
+        const bookRepo = connection.getRepository(Book);
+        const books = await bookRepo.find();
+        return res.status(200).send(books);
       } catch (e) {
         console.error(e);
-        res.status(500).send(e);
+        return res.status(500).send(e);
       }
     }
   );
@@ -115,7 +118,7 @@ const init = async () => {
     async (
       req: Request<GetOneParams, null, Partial<BookPut>, null>,
       res: Response
-    ) => {
+    ): Promise<Response> => {
       const params = req.params;
       const id = params?.id;
 
@@ -139,20 +142,21 @@ const init = async () => {
             .send('Error: name and textBody must be strings');
         }
 
-        const bookRepo = getConnection().getRepository(Book);
+        const bookRepo = connection.getRepository(Book);
         const oldBook = await bookRepo.findOne(id);
         if (oldBook) {
           const newBook = bookRepo.merge(oldBook, {
             name,
             sequenceNum,
-            textBody,
+            textBody
           });
-          return await bookRepo.save(newBook);
+          const book = await bookRepo.save(newBook);
+          res.status(201).send(book);
         }
-        return null;
+        return res.status(406).send('Book does not exist');
       } catch (e) {
         console.error(e);
-        res.status(500).send(e);
+        return res.status(500).send(e);
       }
     }
   );
@@ -162,7 +166,7 @@ const init = async () => {
     async (
       req: Request<getChapterParams, null, null, null>,
       res: Response
-    ): Promise<Chapter[] | null | Response> => {
+    ): Promise<Response> => {
       const params = req.params;
       const id = params?.bookId;
       try {
@@ -173,12 +177,12 @@ const init = async () => {
             .send('Error: name and textBody must be strings');
         }
 
-        const bookRepo = getConnection().getRepository(Book);
+        const bookRepo = connection.getRepository(Book);
         const book = await bookRepo.findOne({ id });
         if (book) {
-          return book.chapters;
+          return res.status(200).send(book.chapters);
         } else {
-          return null;
+          return res.status(406).send('No such resource exists');
         }
       } catch (e) {
         console.error(e);
@@ -189,10 +193,14 @@ const init = async () => {
 
   app.get(
     '/chapters',
-    async (req: Request<null, null, null, null>, res: Response) => {
+    async (
+      req: Request<null, null, null, null>,
+      res: Response
+    ): Promise<Response> => {
       try {
-        const chapterRepo = getConnection().getRepository(Chapter);
-        return await chapterRepo.find();
+        const chapterRepo = connection.getRepository(Chapter);
+        const chapters = await chapterRepo.find();
+        return res.status(200).send(chapters);
       } catch (e) {
         console.error(e);
         return res.status(500).send(e);
@@ -205,7 +213,7 @@ const init = async () => {
     async (
       req: Request<null, null, ChapterPost, null>,
       res: Response
-    ) => {
+    ): Promise<Response> => {
       const body = req.body;
       const name = body?.name;
       const textBody = body?.textBody;
@@ -219,24 +227,24 @@ const init = async () => {
             .send('Error: name and textBody must be strings');
         }
 
-        const bookRepo = getConnection().getRepository(Book);
+        const bookRepo = connection.getRepository(Book);
         const book = await bookRepo.findOne({ id: bookId });
         if (!book) {
           return res.status(406).send('Error: Book does not exist');
         }
 
-        const chapterRepo = getConnection().getRepository(Chapter);
+        const chapterRepo = connection.getRepository(Chapter);
         const newChapter = chapterRepo.create({
           name,
-          textBody,
+          textBody
         });
         book.chapters = [...book.chapters, newChapter];
 
-        await bookRepo.save(book);
-        return book;
+        const savedBook = await bookRepo.save(book);
+        return res.status(200).send(savedBook);
       } catch (e) {
         console.error(e);
-        res.status(500).send(e);
+        return res.status(500).send(e);
       }
     }
   );
@@ -246,7 +254,7 @@ const init = async () => {
     async (
       req: Request<GetOneParams, null, Partial<ChapterPut>, null>,
       res: Response
-    ): Promise<Response | null> => {
+    ): Promise<Response> => {
       const params = req.params;
       const id = params?.id;
 
@@ -261,20 +269,19 @@ const init = async () => {
           return res.status(400).send('Error: id must be strings');
         }
 
-        const chapterRepo = getConnection().getRepository(Chapter);
+        const chapterRepo = connection.getRepository(Chapter);
         const oldChapter = await chapterRepo.findOne({ id });
         if (oldChapter) {
           const newChapter = chapterRepo.merge(oldChapter, {
             name: name || oldChapter.name,
             textBody: textBody || oldChapter.textBody,
             sequenceNum:
-              parseInt(sequenceNum as string) ||
-              oldChapter.sequenceNum,
+              parseInt(sequenceNum as string) || oldChapter.sequenceNum
           });
           await chapterRepo.save(newChapter);
           res.status(200).send(newChapter);
         }
-        return null;
+        return res.status(406).send('No such chapter exists');
       } catch (e) {
         console.error(e);
         return res.status(500).send(e);

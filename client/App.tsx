@@ -7,7 +7,7 @@ import BookSelect from './components/BookSelect';
 import { Book } from './types';
 
 const App = (): JSX.Element => {
-  const [books, setBooks] = useState<[] | Book[]>([]);
+  const [books, setBooks] = React.useState<Book[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentBook, setCurrentBook] = useState<Book | null>(null);
 
@@ -29,7 +29,7 @@ const App = (): JSX.Element => {
           ) : (
             <>
               {books.length ? (
-                <BookSelect setBook={setCurrentBook} />
+                <BookSelect setBook={setCurrentBook} books={books} />
               ) : (
                 <NewBookDashboard />
               )}
