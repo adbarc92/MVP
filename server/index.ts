@@ -11,11 +11,11 @@ import {
   BookPut,
   getChapterParams,
   ChapterPost,
-  ChapterPut
+  ChapterPut,
 } from './types';
 import {
   validateRequestStrings,
-  validateRequestNumbers
+  validateRequestNumbers,
 } from './utils';
 
 import { Book } from './models/Book';
@@ -145,7 +145,7 @@ const init = async () => {
           const newBook = bookRepo.merge(oldBook, {
             name,
             sequenceNum,
-            textBody
+            textBody,
           });
           return await bookRepo.save(newBook);
         }
@@ -228,11 +228,12 @@ const init = async () => {
         const chapterRepo = getConnection().getRepository(Chapter);
         const newChapter = chapterRepo.create({
           name,
-          textBody
+          textBody,
         });
         book.chapters = [...book.chapters, newChapter];
 
-        return await bookRepo.save(book);
+        await bookRepo.save(book);
+        return book;
       } catch (e) {
         console.error(e);
         res.status(500).send(e);
@@ -268,7 +269,7 @@ const init = async () => {
             textBody: textBody || oldChapter.textBody,
             sequenceNum:
               parseInt(sequenceNum as string) ||
-              oldChapter.sequenceNum
+              oldChapter.sequenceNum,
           });
           await chapterRepo.save(newChapter);
           res.status(200).send(newChapter);
