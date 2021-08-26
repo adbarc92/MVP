@@ -1,17 +1,34 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { TextField, Checkbox, Button } from '@material-ui/core';
-import { Chapter } from '../types';
+import { Chapter, Book } from '../types';
 
 interface ChapterEditProps {
   chapter: Chapter;
+  setBook: (book: Book) => void;
 }
 
-const ChapterEdit = ({ chapter }: ChapterEditProps): JSX.Element => {
+const ChapterEdit = ({
+  chapter,
+  setBook
+}: ChapterEditProps): JSX.Element => {
   const [title, setTitle] = useState(chapter.name);
   const [summary, setSummary] = useState(chapter.textBody);
 
   const handleClick = () => {
-    // save chapter changes
+    axios
+      .put(`/chapter/${chapter.id}`, {
+        ...chapter,
+        name: title,
+        textBody: summary
+      })
+      .then((res) => {
+        setBook(res.data);
+      })
+      .catch((e) => {
+        console.error(e);
+        console.error('Chapter could not be updated');
+      });
   };
 
   return (

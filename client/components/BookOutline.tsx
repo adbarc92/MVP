@@ -1,6 +1,7 @@
 import React from 'react';
+import axios from 'axios';
 
-import { Book } from '../types';
+import { Book, Chapter } from '../types';
 
 import {
   List,
@@ -15,13 +16,29 @@ import { ExpandMore } from '@material-ui/icons';
 
 interface BookOutlineProps {
   book: Book;
+  setBook: (book: Book) => void;
+  setChapterToEdit: (chapter: Chapter) => void;
 }
 
-const BookOutline = ({ book }: BookOutlineProps): JSX.Element => {
+const BookOutline = ({
+  book,
+  setBook,
+  setChapterToEdit
+}: BookOutlineProps): JSX.Element => {
   const chapters = book?.chapters;
 
   const handleClick = () => {
-    // create new chapter
+    axios
+      .post('/chapters', {
+        name: '--NEW CHAPTER--',
+        textBody: '--What happens?--',
+        bookId: book.id
+      })
+      .then((res) => setBook(res.data))
+      .catch((e) => {
+        console.error('New chapter could not be created');
+        console.error('Error:', e);
+      });
   };
 
   return (
@@ -33,8 +50,12 @@ const BookOutline = ({ book }: BookOutlineProps): JSX.Element => {
         {chapters
           ? chapters.map((chapter) => {
               return (
-                <AccordionDetails>
-                  <Typography>{chapter.name}</Typography>
+                <AccordionDetails key={chapter.name}>
+                  <Typography
+                    onClick={() => setChapterToEdit(chapter)}
+                  >
+                    {chapter.name}
+                  </Typography>
                 </AccordionDetails>
               );
             })

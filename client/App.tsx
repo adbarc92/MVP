@@ -32,7 +32,10 @@ const App = (): JSX.Element => {
       ) : (
         <>
           {currentBook ? (
-            <BookDisplay book={currentBook} />
+            <BookDisplay
+              book={currentBook}
+              setBook={setCurrentBook}
+            />
           ) : (
             <>
               {books.length ? (
