@@ -1,10 +1,10 @@
-// export interface Node {
-//   id: string;
-//   createdAt: Date | string;
-//   updatedAt: Date | string;
-//   name: string;
-//   description: string;
-// }
+export interface Node {
+  id: string;
+  createdAt: Date | string;
+  updatedAt: Date | string;
+  name: string;
+  description: string;
+}
 
 // export interface Section {
 //   id: string;

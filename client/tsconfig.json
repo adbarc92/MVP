@@ -4,7 +4,8 @@
 		"lib": [
 			"dom",
 			"dom.iterable",
-			"esnext"
+			"esnext",
+			"es5"
 		],
 		"allowJs": true,
 		"skipLibCheck": true,
@@ -25,5 +26,8 @@
 	"include": [
 		".",
 		"components"
+	],
+	"exclude": [
+		"webpack.config.js"
 	]
 }

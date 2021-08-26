@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react';
-// import TipTap from './components/TipTap';
 import axios from 'axios';
+import { CircularProgress } from '@material-ui/core';
+import NewBookDashboard from './components/NewBookDashboard';
+import BookDisplay from './components/BookDisplay';
+import BookSelect from './components/BookSelect';
+import { Book } from './types';
 
 const App = (): JSX.Element => {
-  const [books, setBooks] = useState([]);
+  const [books, setBooks] = useState<[] | Book[]>([]);
   const [loading, setLoading] = useState(true);
+  const [currentBook, setCurrentBook] = useState<Book | null>(null);
 
   useEffect(() => {
     axios.get('/books').then((results) => {
@@ -16,9 +21,21 @@ const App = (): JSX.Element => {
   return (
     <div>
       {loading ? (
-        <div>Hello, things are loading</div>
+        <CircularProgress />
       ) : (
-        <div>Hello, things are loaded</div>
+        <>
+          {currentBook ? (
+            <BookDisplay book={currentBook} />
+          ) : (
+            <>
+              {books.length ? (
+                <BookSelect setBook={setCurrentBook} />
+              ) : (
+                <NewBookDashboard />
+              )}
+            </>
+          )}
+        </>
       )}
     </div>
   );
