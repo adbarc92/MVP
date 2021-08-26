@@ -14,7 +14,7 @@ export class Section {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @ManyToOne((type) => Chapter, (chapter) => chapter.sections, {
+  @ManyToOne(type => Chapter, chapter => chapter.sections, {
     cascade: true
   })
   @JoinColumn()
@@ -29,8 +29,8 @@ export class Section {
   @Column({ type: 'text' })
   name!: string;
 
-  @Column({ type: 'int' })
-  sequenceNum!: number;
+  // @Column({ type: 'int' })
+  // sequenceNum!: number;
 
   @Column({ type: 'text' })
   textBody!: string;

@@ -9,6 +9,5 @@
   "files.trimTrailingWhitespace": true,
   "javascript.suggest.enabled": false,
   "javascript.updateImportsOnFileMove.enabled": "never",
-	"javascript.validate.enable": false,
-	"typescript.tsdk": "node_modules\\typescript\\lib"
+  "javascript.validate.enable": false
 }

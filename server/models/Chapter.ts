@@ -34,8 +34,8 @@ export class Chapter {
   @Column({ type: 'text' })
   name!: string;
 
-  @Column({ type: 'int'})
-  sequenceNum!: number;
+  // @Column({ type: 'int'})
+  // sequenceNum!: number;
 
   @Column({ type: 'text' })
   textBody!: string;
