@@ -12,7 +12,6 @@ const BookSelect = ({
   setBook,
   books
 }: BookSelectProps): JSX.Element => {
-  console.log('books:', books);
   return (
     <div>
       <h3>Book List</h3>

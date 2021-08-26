@@ -1,28 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { TextField, Checkbox, Button } from '@material-ui/core';
 import { Chapter, Book } from '../types';
+import './ChapterEdit.css';
 
 interface ChapterEditProps {
   chapter: Chapter;
   setBook: (book: Book) => void;
+  book: Book;
 }
 
 const ChapterEdit = ({
   chapter,
-  setBook
+  setBook,
+  book
 }: ChapterEditProps): JSX.Element => {
   const [title, setTitle] = useState(chapter.name);
   const [summary, setSummary] = useState(chapter.textBody);
 
   const handleClick = () => {
     axios
-      .put(`/chapter/${chapter.id}`, {
+      .put(`/chapters/${chapter.id}`, {
         ...chapter,
         name: title,
-        textBody: summary
+        textBody: summary,
+        bookId: book.id
       })
       .then((res) => {
+        console.log('chapter edit data:', res.data);
         setBook(res.data);
       })
       .catch((e) => {
@@ -32,8 +37,9 @@ const ChapterEdit = ({
   };
 
   return (
-    <div>
+    <div className='edit-container'>
       <TextField
+        margin='normal'
         variant='outlined'
         label='Title'
         value={title}
@@ -44,6 +50,8 @@ const ChapterEdit = ({
         {title}
       </TextField>
       <TextField
+        margin='normal'
+        multiline
         variant='outlined'
         label='Summary'
         value={summary}

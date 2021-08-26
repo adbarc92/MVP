@@ -13,7 +13,7 @@ import {
   ChapterPost,
   ChapterPut
 } from './types';
-import { validateRequestStrings, validateRequestNumbers } from './utils';
+import { validateRequestStrings } from './utils';
 
 import { Book } from './models/Book';
 import { Chapter } from './models/Chapter';
@@ -231,7 +231,10 @@ const init = async () => {
         }
 
         const bookRepo = connection.getRepository(Book);
-        const book = await bookRepo.findOne({ id: bookId });
+        const book = await bookRepo.findOne(
+          { id: bookId },
+          { relations: ['chapters'] }
+        );
         if (!book) {
           return res.status(406).send('Error: Book does not exist');
         }
@@ -241,6 +244,9 @@ const init = async () => {
           name,
           textBody
         });
+
+        console.debug('');
+
         if (book.chapters) {
           book.chapters = [...book.chapters, newChapter];
         } else {
@@ -266,15 +272,18 @@ const init = async () => {
       const params = req.params;
       const id = params?.id;
 
+      console.log('chapterPut req.body', req.body);
+
       const body = req.body;
       const name = body?.name;
+      const bookId = body?.bookId;
       // const sequenceNum = body?.sequenceNum;
       const textBody = body?.textBody;
 
       try {
-        const error = validateRequestStrings(id);
+        const error = validateRequestStrings(id, bookId);
         if (error) {
-          return res.status(400).send('Error: id must be strings');
+          return res.status(400).send('Error: id and bookId must be strings');
         }
 
         const chapterRepo = connection.getRepository(Chapter);
@@ -287,7 +296,14 @@ const init = async () => {
             //   parseInt(sequenceNum as string) || oldChapter.sequenceNum
           });
           await chapterRepo.save(newChapter);
-          res.status(200).send(newChapter);
+          const book = await connection
+            .getRepository(Book)
+            .findOne({ id: bookId }, { relations: ['chapters'] });
+          if (!book) {
+            return res.status(406).send('An inexplicable misfire has occurred');
+          } else {
+            return res.status(200).send(book);
+          }
         }
         return res.status(406).send('No such chapter exists');
       } catch (e) {

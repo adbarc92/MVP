@@ -50,22 +50,28 @@ const BookOutline = ({
         {chapters
           ? chapters.map((chapter) => {
               return (
-                <AccordionDetails key={chapter.name}>
-                  <Typography
-                    onClick={() => setChapterToEdit(chapter)}
-                  >
-                    {chapter.name}
-                  </Typography>
+                <AccordionDetails
+                  key={
+                    chapter.name === '--NEW CHAPTER--'
+                      ? '--NEW CHAPTER--' + chapter.id
+                      : chapter.name
+                  }
+                >
+                  <span style={{ cursor: 'pointer' }}>
+                    <Typography
+                      onClick={() => setChapterToEdit(chapter)}
+                    >
+                      {chapter.name}
+                    </Typography>
+                  </span>
                 </AccordionDetails>
               );
             })
           : null}
-        <AccordionDetails>
-          <Button onClick={handleClick}>
-            <Typography>Create new chapter</Typography>
-          </Button>
-        </AccordionDetails>
       </Accordion>
+      <Button onClick={handleClick}>
+        <Typography>Create new chapter</Typography>
+      </Button>
     </div>
   );
 };
