@@ -18,7 +18,7 @@ const BookSelect = ({
       <List>
         {books.map((book) => (
           <ListItem key={book.name} onClick={() => setBook(book)}>
-            {book.name}
+            <span style={{ cursor: 'pointer' }}>{book.name}</span>
           </ListItem>
         ))}
       </List>
