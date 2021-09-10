@@ -59,4 +59,3 @@ yarn-debug.log*
 yarn-error.log*
 
 server/ormconfig.json
-server/config.ts
