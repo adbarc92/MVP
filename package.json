@@ -8,7 +8,7 @@
 		"prebuild": "concurrently \"cd client && npm install\" \"cd server && npm install\"",
     "build": "cd client && npm run build",
 		"serve": "cd server && npm run start:prod",
-		"start": "npm run download && npm run build && npm run serve"
+		"start": "npm run build && npm run serve"
   },
   "repository": {
     "type": "git",
