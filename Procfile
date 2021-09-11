@@ -1,1 +1,1 @@
-web: npm run download && npm run start
+web: npm run start
