@@ -4,10 +4,12 @@
   "description": "## Requirements",
   "main": "index.js",
   "scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
-		"start:client": "cd client && npm install && npm run build",
-		"start:server": "cd server && npm install && npm run start:prod",
-		"start": "concurrently \"npm run start:client\" \"npm run start:server\""
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:client": "cd client && npm install && npm run build",
+    "start:server": "cd server && npm install && npm run start:prod",
+    "start:concur": "concurrently \"npm run start:client\" \"npm run start:server\"",
+    "start:sequence": "npm run start:client && npm run start:server",
+    "start": "npm run start:sequence"
   },
   "repository": {
     "type": "git",
