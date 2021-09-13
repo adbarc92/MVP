@@ -14,7 +14,8 @@ const typeOrmConfig: PostgresConnectionOptions = {
   password: process.env.DB_PASSWORD || 'postgres',
   database: process.env.DB_NAME || 'outlinear',
   synchronize: true,
-  logging: true
+  logging: true,
+  ssl: process.env.DB_SSL === 'true',
 };
 
 export default typeOrmConfig;
