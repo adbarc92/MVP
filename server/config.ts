@@ -15,7 +15,11 @@ const typeOrmConfig: PostgresConnectionOptions = {
   database: process.env.DB_NAME || 'outlinear',
   synchronize: true,
   logging: true,
-  ssl: process.env.DB_SSL === 'true',
+  extra: {
+    ssl: {
+      rejectUnauthorized: false
+    }
+  }
 };
 
 export default typeOrmConfig;
