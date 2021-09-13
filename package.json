@@ -9,7 +9,8 @@
     "start:server": "cd server && npm install && npm run start:prod",
     "start:concur": "concurrently \"npm run start:client\" \"npm run start:server\"",
     "start:sequence": "npm run start:client && npm run start:server",
-    "start": "npm run start:sequence"
+		"start": "cd server && npm run start:prod",
+		"build": "cd client && npm run build"
   },
   "repository": {
     "type": "git",
