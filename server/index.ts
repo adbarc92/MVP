@@ -37,8 +37,6 @@ app.use(express.static(path.join(__dirname, '../public/')));
 
 const connectionManager = new ConnectionManager();
 
-console.log('typeOrmConfig:', typeOrmConfig);
-
 const connection = connectionManager.create({
   ...typeOrmConfig,
   entities: [Book, Chapter, Node, Section]
