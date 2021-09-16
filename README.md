@@ -2,6 +2,8 @@
 
 An tool for use by fiction authors to plan their next big work.
 
+![Example](https://user-images.githubusercontent.com/42557448/133675481-c3cd7bde-2d5f-4b04-a6a9-ee5b5df56a6f.gif)
+
 ## Requirements
 
 - A running [PostgreSQL installation](https://www.postgresql.org/download/) with a database named "outlinear"
@@ -22,4 +24,5 @@ An tool for use by fiction authors to plan their next big work.
 <img height="32" width="32" align="left" src='https://raw.githubusercontent.com/rahul-jha98/README_icons/main/language_and_tools/square/material-ui/material-ui.svg' />
 
 <img height="32" width="32" align="left" src='https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/postgresql/postgresql.png' />
+
 
