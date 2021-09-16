@@ -9,10 +9,9 @@ An tool for use by fiction authors to plan their next big work.
 
 ## Run Instructions
 
-1. Start PostgreSQL
-2. Create a new database with the name `outlinear` (or the name corresponding to the database field of your `config.ts` file) using the command `createdb <database-name>`
-3. Run `yarn build` to install the client-dependencies and build the client-side
-4. Run `yarn start` to install server-dependencies and start the server on Port 3000
+1. Clone the repository
+2. Run `yarn build` to install the client-dependencies and build the client-side
+3. Run `yarn start` to install server-dependencies and start the server on Port 3000
 
 ## Technologies
 
