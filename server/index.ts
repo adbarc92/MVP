@@ -1,7 +1,6 @@
 import express, { Request, Response } from 'express';
 import morgan from 'morgan';
 import path from 'path';
-import compression from 'compression';
 
 import { ConnectionManager } from 'typeorm';
 import typeOrmConfig from './config';
@@ -24,7 +23,6 @@ import { Section } from './models/Section';
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-// app.use(compression());
 app.use('*.js', function (req, res, next) {
   req.url = req.url + '.gz';
   res.set('Content-Encoding', 'gzip');
