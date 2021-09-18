@@ -3,6 +3,7 @@ const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: './',
@@ -35,8 +36,11 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': JSON.stringify('production')
+        NODE_ENV: JSON.stringify('production')
       }
+    }),
+    new HtmlWebpackPlugin({
+      template: 'index.html'
     }),
     new CompressionPlugin({
       algorithm: 'gzip',
