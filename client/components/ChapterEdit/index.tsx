@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { TextField, Checkbox, Button } from '@material-ui/core';
-import { Chapter, Book } from '../types';
+import { Chapter, Book } from '../../types';
 import './ChapterEdit.css';
 
 interface ChapterEditProps {
@@ -13,7 +13,7 @@ interface ChapterEditProps {
 const ChapterEdit = ({
   chapter,
   setBook,
-  book
+  book,
 }: ChapterEditProps): JSX.Element => {
   const [title, setTitle] = useState(chapter.name);
   const [summary, setSummary] = useState(chapter.textBody);
@@ -24,7 +24,7 @@ const ChapterEdit = ({
         ...chapter,
         name: title,
         textBody: summary,
-        bookId: book.id
+        bookId: book.id,
       })
       .then((res) => {
         console.log('chapter edit data:', res.data);
