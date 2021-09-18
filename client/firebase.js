@@ -22,9 +22,7 @@ const firebaseConfig = {
   measurementId: firebaseMeasurementId
 };
 
-firebase.initializeApp(firebaseConfig);
-
 export const getUserIdToken = () =>
   getAuth().currentUser.getIdToken();
 
-export default firebase;
+export default firebase.initializeApp(firebaseConfig);
