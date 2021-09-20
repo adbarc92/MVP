@@ -1,4 +1,5 @@
 import React, { useState, useReducer } from 'react';
+
 import {
   Box,
   TextField,
@@ -9,11 +10,9 @@ import {
   Grid,
   Container
 } from '@material-ui/core';
-import firebaseApp from '../firebase';
 
 import {
   getAuth,
-  onAuthStateChanged,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   User as FirebaseUser,
@@ -21,13 +20,17 @@ import {
   Auth
 } from 'firebase/auth';
 
-// TODO: import alert for errors
+import { Alert } from '@material-ui/lab';
 
+interface LoginError {
+  code: string;
+  message: string;
+}
 interface LoginState {
   email: string;
   password: string;
   triedSubmit: boolean;
-  errors: string[];
+  errors: LoginError[];
 }
 
 interface LoginAction {
@@ -63,7 +66,10 @@ const inputReducer = (
     case 'error': {
       return {
         ...state,
-        errors: [...state.errors, action.value]
+        errors: [
+          ...state.errors,
+          { code: action.name, message: action.value }
+        ]
       };
     }
     case 'reset': {
@@ -129,7 +135,9 @@ const LoginPage = ({ setUser }: LoginPageProps): JSX.Element => {
       });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (
+    e: React.FormEvent<HTMLFormElement>
+  ): void => {
     e.preventDefault();
     const auth = getAuth();
     // TODO: Add validation here
@@ -193,6 +201,13 @@ const LoginPage = ({ setUser }: LoginPageProps): JSX.Element => {
           </Grid>
         </Grid>
       </Box>
+      {inputState.triedSubmit && inputState.errors
+        ? inputState.errors.map((error, i) => {
+            return (
+              <Alert severity='error'>{`${error.code}: ${error.message}`}</Alert>
+            );
+          })
+        : null}
     </Container>
   );
 };
