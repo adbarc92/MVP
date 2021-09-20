@@ -1,7 +1,7 @@
 // import dotenv from 'dotenv';
 // dotenv.config();
 
-export default {
+const config = {
   firebaseCredentials: {
     firebaseApiKey: process.env.FIREBASE_API_KEY || '',
     firebaseAuthDomain: process.env.FIREBASE_AUTH_DOMAIN || '',
@@ -13,3 +13,5 @@ export default {
     firebaseMeasurementId: process.env.FIREBASE_MEASUREMENT_ID || ''
   }
 };
+
+export default config;

@@ -4,6 +4,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: './',
@@ -47,7 +48,8 @@ module.exports = {
       test: /\.js$|\.css$|\.html$/,
       threshold: 0,
       minRatio: 0.8
-    })
+    }),
+    new Dotenv()
   ],
   resolve: {
     extensions: ['.ts', '.js', '.tsx']

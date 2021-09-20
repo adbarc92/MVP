@@ -1,5 +1,15 @@
 import React, { useState, useReducer } from 'react';
-import { Box, TextField, Button } from '@material-ui/core';
+import {
+  Box,
+  TextField,
+  Button,
+  FormControlLabel,
+  Checkbox,
+  Link,
+  Grid,
+  Container
+} from '@material-ui/core';
+import firebaseApp from '../firebase';
 
 const initialState = {
   username: '',
@@ -23,6 +33,10 @@ const inputReducer = (state, action) => {
   }
 };
 
+interface LoginPageProps {
+  setUser: () => void;
+}
+
 const LoginPage = () => {
   const [isSigningUp, setIsSigningUp] = useState(false);
   const [inputState, dispatch] = useReducer(
@@ -39,42 +53,59 @@ const LoginPage = () => {
     dispatch({ type: 'field', name, value });
   };
 
+  const handleSubmit = (e) => {};
+
   return (
-    <Box>
-      <TextField
-        onChange={handleInputChange}
-        label='login-username'
-        id='login-username'
-        required
-      ></TextField>
-      <TextField
-        label='login-email'
-        id='login-email'
-        required
-      ></TextField>
-      <TextField
-        label='login-password'
-        id='login-password'
-        type='password'
-        required
-      ></TextField>
-      <TextField
-        label='login-password-confirm'
-        id='login-password-confirm'
-        type='password'
-        required
-      ></TextField>
-      <Button onClick={toggleSignUp}>
-        {isSigningUp ? 'Log in' : 'Sign up'}
-      </Button>
-      <Button
-        onClick={() => {
-          console.debug('signing up!');
+    <Container component='main' maxWidth='xs'>
+      <Box
+        component='form'
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center'
         }}
+        onSubmit={handleSubmit}
       >
-        Submit
-      </Button>
-    </Box>
+        <TextField
+          margin='normal'
+          required
+          fullWidth
+          name='email'
+          id='email'
+          label='Email Address'
+          autoComplete='email'
+          autoFocus
+        />
+        <TextField
+          margin='normal'
+          required
+          fullWidth
+          name='password'
+          id='password'
+          label='Password'
+          autoComplete='current-password'
+        />
+        <FormControlLabel
+          control={<Checkbox value='remember' color='primary' />}
+          label='Remember me'
+        />
+        <Button type='submit' fullWidth variant='contained'>
+          Sign In
+        </Button>
+        <Grid container>
+          <Grid item xs>
+            <Link href='#' variant='body2'>
+              Forgot password?
+            </Link>
+          </Grid>
+          <Grid item>
+            <Link href='#' variant='body2'>
+              {"Don't have an account? Sign Up"}
+            </Link>
+          </Grid>
+        </Grid>
+      </Box>
+    </Container>
   );
 };
 

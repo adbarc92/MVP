@@ -7,7 +7,7 @@ import {
 } from 'firebase/auth';
 import { CircularProgress } from '@material-ui/core';
 
-import firebaseApp from './firebase';
+import initFbApp from './firebase';
 
 import NewBookDashboard from './components/NewBookDashboard';
 import BookDisplay from './components/BookDisplay';
@@ -23,6 +23,7 @@ const App = (): JSX.Element => {
   const [user, setUser] = useState<FirebaseUser | null>(null);
 
   useEffect(() => {
+    initFbApp();
     const auth = getAuth();
     onAuthStateChanged(auth, (newUser) => {
       if (newUser) {

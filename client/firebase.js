@@ -1,6 +1,6 @@
-import * as firebase from 'firebase/app';
+import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { firebaseCredentials } from './config';
+import config from './config';
 
 const {
   firebaseApiKey,
@@ -10,7 +10,7 @@ const {
   firebaseMessagingSenderId,
   firebaseAppId,
   firebaseMeasurementId
-} = firebaseCredentials;
+} = config.firebaseCredentials;
 
 const firebaseConfig = {
   apiKey: firebaseApiKey,
@@ -25,4 +25,15 @@ const firebaseConfig = {
 export const getUserIdToken = () =>
   getAuth().currentUser.getIdToken();
 
-export default firebase.initializeApp(firebaseConfig);
+const initFbApp = () => {
+  let appInitialized = false;
+
+  return () => {
+    if (!appInitialized) {
+      appInitialized = true;
+      initializeApp(firebaseConfig);
+    }
+  };
+};
+
+export default initFbApp();
