@@ -11,18 +11,59 @@ import {
 } from '@material-ui/core';
 import firebaseApp from '../firebase';
 
-const initialState = {
-  username: '',
+import {
+  getAuth,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  User as FirebaseUser,
+  AuthError,
+  Auth
+} from 'firebase/auth';
+
+// TODO: import alert for errors
+
+interface LoginState {
+  email: string;
+  password: string;
+  triedSubmit: boolean;
+  errors: string[];
+}
+
+interface LoginAction {
+  type: string;
+  value: string;
+  name: string;
+}
+
+const initialState: LoginState = {
   email: '',
-  password: ''
+  password: '',
+  triedSubmit: false,
+  errors: []
 };
 
-const inputReducer = (state, action) => {
+const inputReducer = (
+  state: LoginState,
+  action: LoginAction
+): LoginState => {
   switch (action.type) {
     case 'field': {
       return {
         ...state,
         [action.name]: action.value
+      };
+    }
+    case 'submit': {
+      return {
+        ...state,
+        triedSubmit: true
+      };
+    }
+    case 'error': {
+      return {
+        ...state,
+        errors: [...state.errors, action.value]
       };
     }
     case 'reset': {
@@ -34,10 +75,10 @@ const inputReducer = (state, action) => {
 };
 
 interface LoginPageProps {
-  setUser: () => void;
+  setUser: (user: FirebaseUser) => void;
 }
 
-const LoginPage = () => {
+const LoginPage = ({ setUser }: LoginPageProps): JSX.Element => {
   const [isSigningUp, setIsSigningUp] = useState(false);
   const [inputState, dispatch] = useReducer(
     inputReducer,
@@ -48,12 +89,53 @@ const LoginPage = () => {
     setIsSigningUp(!isSigningUp);
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const { value, name } = e.target;
     dispatch({ type: 'field', name, value });
   };
 
-  const handleSubmit = (e) => {};
+  const handleAuthError = (error: AuthError): void => {
+    const { code: errorCode, message: errorMessage } = error;
+    console.error(`Error: ${errorCode}: ${errorMessage}`);
+    dispatch({
+      type: 'error',
+      name: errorCode,
+      value: errorMessage
+    });
+  };
+
+  const handleSignUp = (auth: Auth): void => {
+    const { email, password } = inputState;
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(({ user }) => {
+        console.log('user:', user);
+        setUser(user);
+      })
+      .catch((error) => {
+        handleAuthError(error);
+      });
+  };
+
+  const handleSignIn = (auth: Auth): void => {
+    const { email, password } = inputState;
+    signInWithEmailAndPassword(auth, email, password)
+      .then(({ user }) => {
+        setUser(user);
+      })
+      .catch((error) => {
+        handleAuthError(error);
+      });
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const auth = getAuth();
+    // TODO: Add validation here
+    isSigningUp ? handleSignUp(auth) : handleSignIn(auth);
+    dispatch({ type: 'reset', name: '', value: '' });
+  };
 
   return (
     <Container component='main' maxWidth='xs'>
@@ -73,8 +155,10 @@ const LoginPage = () => {
           name='email'
           id='email'
           label='Email Address'
+          type='email'
           autoComplete='email'
           autoFocus
+          onChange={handleInputChange}
         />
         <TextField
           margin='normal'
@@ -83,14 +167,16 @@ const LoginPage = () => {
           name='password'
           id='password'
           label='Password'
+          type='password'
           autoComplete='current-password'
+          onChange={handleInputChange}
         />
         <FormControlLabel
           control={<Checkbox value='remember' color='primary' />}
           label='Remember me'
         />
         <Button type='submit' fullWidth variant='contained'>
-          Sign In
+          {isSigningUp ? 'Sign Up' : 'Sign In'}
         </Button>
         <Grid container>
           <Grid item xs>
@@ -99,8 +185,10 @@ const LoginPage = () => {
             </Link>
           </Grid>
           <Grid item>
-            <Link href='#' variant='body2'>
-              {"Don't have an account? Sign Up"}
+            <Link onClick={toggleSignUp} variant='body2'>
+              {isSigningUp
+                ? 'Already have an account? Sign In'
+                : "Don't have an account? Sign Up"}
             </Link>
           </Grid>
         </Grid>

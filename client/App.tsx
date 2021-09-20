@@ -72,7 +72,7 @@ const App = (): JSX.Element => {
               </>
             )
           ) : (
-            <LoginPage />
+            <LoginPage setUser={setUser} />
           )}
         </>
       )}
