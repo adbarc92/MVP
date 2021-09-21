@@ -41,7 +41,6 @@ module.exports = {
         NODE_ENV: JSON.stringify('production')
       }
     }),
-    new BundleAnalyzerPlugin(),
     new HtmlWebpackPlugin({
       template: 'index.html'
     }),
@@ -57,3 +56,11 @@ module.exports = {
     extensions: ['.ts', '.js', '.tsx']
   }
 };
+
+const isAnalyze = process.env.ANALYZE === 'true';
+
+console.log('isAnalyze:', isAnalyze);
+
+if (isAnalyze) {
+  module.exports.plugins.push(new BundleAnalyzerPlugin());
+}
