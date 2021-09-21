@@ -1,4 +1,3 @@
-// import path from 'path';
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');

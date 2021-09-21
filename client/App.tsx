@@ -7,7 +7,7 @@ import {
 } from 'firebase/auth';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import initFbApp from './firebase';
+import initFbApp from './firebaseInit';
 
 import NewBookDashboard from './components/NewBookDashboard';
 import BookDisplay from './components/BookDisplay';
