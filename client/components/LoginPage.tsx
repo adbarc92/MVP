@@ -81,7 +81,7 @@ const inputReducer = (
 };
 
 interface LoginPageProps {
-  setUser: (user: FirebaseUser) => void;
+  setUser: (user: FirebaseUser | null) => void;
 }
 
 const LoginPage = ({ setUser }: LoginPageProps): JSX.Element => {

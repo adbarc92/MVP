@@ -5,6 +5,7 @@ const CompressionPlugin = require('compression-webpack-plugin');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 module.exports = {
   entry: './',
@@ -40,6 +41,7 @@ module.exports = {
         NODE_ENV: JSON.stringify('production')
       }
     }),
+    new BundleAnalyzerPlugin(),
     new HtmlWebpackPlugin({
       template: 'index.html'
     }),

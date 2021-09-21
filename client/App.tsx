@@ -13,6 +13,7 @@ import NewBookDashboard from './components/NewBookDashboard';
 import BookDisplay from './components/BookDisplay';
 import BookSelect from './components/BookSelect';
 import LoginPage from './components/LoginPage';
+import NavBar from './components/NavBar';
 import { Book } from './types';
 import './App.css';
 
@@ -49,28 +50,31 @@ const App = (): JSX.Element => {
 
   return (
     <div className='app'>
+      <NavBar setUser={setUser} user={user} />
       {loading ? (
         <CircularProgress />
       ) : (
         <>
           {user ? (
-            currentBook ? (
-              <BookDisplay
-                book={currentBook}
-                setBook={setCurrentBook}
-              />
-            ) : (
-              <>
-                {books.length ? (
-                  <BookSelect
-                    setBook={setCurrentBook}
-                    books={books}
-                  />
-                ) : (
-                  <NewBookDashboard setBooks={setBooks} />
-                )}
-              </>
-            )
+            <>
+              {currentBook ? (
+                <BookDisplay
+                  book={currentBook}
+                  setBook={setCurrentBook}
+                />
+              ) : (
+                <>
+                  {books.length ? (
+                    <BookSelect
+                      setBook={setCurrentBook}
+                      books={books}
+                    />
+                  ) : (
+                    <NewBookDashboard setBooks={setBooks} />
+                  )}
+                </>
+              )}
+            </>
           ) : (
             <LoginPage setUser={setUser} />
           )}
