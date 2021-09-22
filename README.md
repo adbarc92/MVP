@@ -1,6 +1,16 @@
-# OutLinear
+# Out-Linear
 
-An tool for use by fiction authors to plan their next big work.
+<img height="32" width="32" align="left" src='https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/typescript/typescript.png' />
+
+<img height="32" width="32" align="left" src='https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/react/react.png' />
+
+<img height="32" width="32" align="left" src='https://raw.githubusercontent.com/rahul-jha98/README_icons/main/language_and_tools/square/material-ui/material-ui.svg' />
+
+<img height="32" width="32" align="left" src='https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/postgresql/postgresql.png' />
+
+"Helps straight think you."
+
+A tool for use by fiction authors to plan out their next big work.
 
 ![Example](https://user-images.githubusercontent.com/42557448/133675481-c3cd7bde-2d5f-4b04-a6a9-ee5b5df56a6f.gif)
 
@@ -13,16 +23,6 @@ An tool for use by fiction authors to plan their next big work.
 
 1. Clone the repository
 2. Run `yarn build` to install the client-dependencies and build the client-side
-3. Run `yarn start` to install server-dependencies and start the server on Port 3000
+3. Run `yarn start` to install server-dependencies and start the server on Port 4000
 
-## Technologies
-
-<img height="32" width="32" align="left" src='https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/typescript/typescript.png' />
-
-<img height="32" width="32" align="left" src='https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/react/react.png' />
-
-<img height="32" width="32" align="left" src='https://raw.githubusercontent.com/rahul-jha98/README_icons/main/language_and_tools/square/material-ui/material-ui.svg' />
-
-<img height="32" width="32" align="left" src='https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/postgresql/postgresql.png' />
-
-
+## Changelog
