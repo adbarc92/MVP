@@ -1,6 +1,3 @@
-// import dotenv from 'dotenv';
-// dotenv.config();
-
 const config = {
   firebaseCredentials: {
     firebaseApiKey: process.env.FIREBASE_API_KEY || '',
