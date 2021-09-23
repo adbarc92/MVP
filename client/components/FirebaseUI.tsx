@@ -4,16 +4,19 @@ import {
   GoogleAuthProvider,
   FacebookAuthProvider,
   TwitterAuthProvider,
-  GithubAuthProvider
+  GithubAuthProvider,
+  getAuth
 } from 'firebase/auth';
-import { getAuth } from 'firebase/auth';
-// const firebase = require('firebase');
-// const firebaseui = require('firebaseui');
-import firebaseui from 'firebaseui';
 
-// console.log('firebase:', firebase);
+import { auth } from 'firebaseui';
 
-const ui = new firebaseui.auth.AuthUI(getAuth(firebaseApp));
+console.log('firebaseApp:', firebaseApp);
+
+const appAuth = getAuth(firebaseApp);
+
+console.log('auth:', auth);
+
+const ui = new auth.AuthUI(appAuth);
 
 const uiConfig = {
   // Popup signin flow rather than redirect flow.

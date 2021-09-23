@@ -7,7 +7,7 @@ import {
   OneToMany
 } from 'typeorm';
 import { Chapter } from './Chapter';
-import { Owner } from './Owner';
+// import { Owner } from './Owner';
 
 @Entity()
 export class Book {

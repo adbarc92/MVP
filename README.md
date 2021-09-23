@@ -16,7 +16,7 @@ A tool for use by fiction authors to plan out their next big work.
 
 ## Requirements
 
-- A running [PostgreSQL installation](https://www.postgresql.org/download/) with a database named "outlinear"
+- A running [PostgreSQL installation](https://www.postgresql.org/download/) with a database named "outlinear", a user named 'postgres' and a password, 'postgres'
 - A `config.ts` located in the `server` directory with a configuration matching the example
 
 ## Run Instructions
