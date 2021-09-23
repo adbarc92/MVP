@@ -5,10 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cd server && yarn run start:prod",
-    "build": "(cd server && yarn) && (cd ../client && yarn && yarn run build)",
-    "watch": "cd client && yarn run watch",
-    "serve": "cd server && yarn run start:dev"
+    "start": "cd server && yarn start:prod",
+    "build": "yarn build:server && yarn build:client",
+    "build:server": "cd server && yarn",
+    "build:client": "cd client && yarn && yarn build",
+    "watch": "cd client && yarn watch",
+    "serve": "cd server && yarn start:dev"
   },
   "repository": {
     "type": "git",

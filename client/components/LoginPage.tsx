@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useEffect } from 'react';
+import React, { useState, useReducer } from 'react';
 
 import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
@@ -20,6 +20,8 @@ import {
 
 import { Alert } from '@material-ui/lab';
 
+import { renderFirebaseAuth } from './FirebaseUI';
+
 interface LoginError {
   code: string;
   message: string;
@@ -36,6 +38,8 @@ interface LoginAction {
   value: string;
   name: string;
 }
+
+const firebaseDivId = 'firebaseui-auth-container';
 
 const initialState: LoginState = {
   email: '',
@@ -88,6 +92,10 @@ const LoginPage = ({ setUser }: LoginPageProps): JSX.Element => {
     inputReducer,
     initialState
   );
+
+  // useEffect(() => {
+  //   renderFirebaseAuth();
+  // }, []);
 
   const toggleSignUp = () => {
     setIsSigningUp(!isSigningUp);
@@ -145,6 +153,12 @@ const LoginPage = ({ setUser }: LoginPageProps): JSX.Element => {
 
   return (
     <Container component='main' maxWidth='xs'>
+      <Box>
+        <div
+          ref={() => renderFirebaseAuth(firebaseDivId)}
+          id={firebaseDivId}
+        ></div>
+      </Box>
       <Box
         component='form'
         sx={{
