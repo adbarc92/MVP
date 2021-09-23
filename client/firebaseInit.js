@@ -25,15 +25,4 @@ const firebaseConfig = {
 export const getUserIdToken = () =>
   getAuth().currentUser.getIdToken();
 
-const initFbApp = () => {
-  let appInitialized = false;
-
-  return () => {
-    if (!appInitialized) {
-      appInitialized = true;
-      initializeApp(firebaseConfig);
-    }
-  };
-};
-
-export default initFbApp();
+	export default initializeApp(firebaseConfig);

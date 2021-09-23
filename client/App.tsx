@@ -15,6 +15,8 @@ import NavBar from './components/NavBar';
 import { Book } from './types';
 import './App.css';
 
+import firebaseApp from './firebaseInit';
+
 const App = (): JSX.Element => {
   const [books, setBooks] = React.useState<Book[]>([]);
   const [loading, setLoading] = useState(true);
@@ -22,7 +24,7 @@ const App = (): JSX.Element => {
   const [user, setUser] = useState<FirebaseUser | null>(null);
 
   useEffect(() => {
-    const auth = getAuth();
+    const auth = getAuth(firebaseApp);
     onAuthStateChanged(auth, (newUser) => {
       if (newUser) {
         setUser(newUser);
