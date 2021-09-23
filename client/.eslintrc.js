@@ -30,7 +30,8 @@ module.exports = {
     'comma-dangle': 1,
     'no-unused-vars': 1,
     'no-void': 0,
-    'no-tabs': 0
+		'no-tabs': 0,
+		'@typescript-eslint/no-var-requires': 1
   },
   settings: {}
 };

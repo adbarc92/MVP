@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack --mode development --watch",
     "analyze": "cross-env ANALYZE=true webpack",
-    "build": "webpack"
+    "build": "webpack --mode production"
   },
   "keywords": [],
   "author": "",
@@ -23,10 +23,10 @@
     "compression-webpack-plugin": "^9.0.0",
     "css-loader": "^6.2.0",
     "firebase": "^9.0.2",
-    "firebaseui": "^5.0.0",
     "html-webpack-plugin": "^5.3.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-firebaseui": "^5.0.2",
     "style-loader": "^3.2.1",
     "terser-webpack-plugin": "^5.2.4",
     "ts-loader": "^9.2.5",
