@@ -1,9 +1,7 @@
 import firebaseApp from '../firebaseInit';
 import {
-  EmailAuthProvider,
   GoogleAuthProvider,
   FacebookAuthProvider,
-  TwitterAuthProvider,
   GithubAuthProvider,
   getAuth
 } from 'firebase/auth';
@@ -21,13 +19,8 @@ const uiConfig = {
   signInSuccessUrl: '/signedIn',
   // We will display Google and Facebook as auth providers.
   signInOptions: [
-    {
-      provider: EmailAuthProvider.PROVIDER_ID,
-      requireDisplayName: false
-    },
     GoogleAuthProvider.PROVIDER_ID,
     FacebookAuthProvider.PROVIDER_ID,
-    TwitterAuthProvider.PROVIDER_ID,
     GithubAuthProvider.PROVIDER_ID
   ]
   // Other config options...

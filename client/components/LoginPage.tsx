@@ -15,7 +15,7 @@ import {
   createUserWithEmailAndPassword,
   User as FirebaseUser,
   AuthError,
-  Auth
+  Auth,
 } from 'firebase/auth';
 
 import { Alert } from '@material-ui/lab';
@@ -45,7 +45,7 @@ const initialState: LoginState = {
   email: '',
   password: '',
   triedSubmit: false,
-  errors: []
+  errors: [],
 };
 
 const inputReducer = (
@@ -56,13 +56,13 @@ const inputReducer = (
     case 'field': {
       return {
         ...state,
-        [action.name]: action.value
+        [action.name]: action.value,
       };
     }
     case 'submit': {
       return {
         ...state,
-        triedSubmit: true
+        triedSubmit: true,
       };
     }
     case 'error': {
@@ -70,8 +70,8 @@ const inputReducer = (
         ...state,
         errors: [
           ...state.errors,
-          { code: action.name, message: action.value }
-        ]
+          { code: action.name, message: action.value },
+        ],
       };
     }
     case 'reset': {
@@ -110,7 +110,7 @@ const LoginPage = ({ setUser }: LoginPageProps): JSX.Element => {
     dispatch({
       type: 'error',
       name: errorCode,
-      value: errorMessage
+      value: errorMessage,
     });
   };
 
@@ -149,18 +149,12 @@ const LoginPage = ({ setUser }: LoginPageProps): JSX.Element => {
 
   return (
     <Container component='main' maxWidth='xs'>
-      <Box>
-        <div
-          ref={() => renderFirebaseAuth(firebaseDivId)}
-          id={firebaseDivId}
-        ></div>
-      </Box>
       <Box
         component='form'
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center'
+          alignItems: 'center',
         }}
         onSubmit={handleSubmit}
       >
@@ -216,6 +210,12 @@ const LoginPage = ({ setUser }: LoginPageProps): JSX.Element => {
             );
           })
         : null}
+      <Box>
+        <div
+          ref={() => renderFirebaseAuth(firebaseDivId)}
+          id={firebaseDivId}
+        ></div>
+      </Box>
     </Container>
   );
 };
