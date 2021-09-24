@@ -93,10 +93,6 @@ const LoginPage = ({ setUser }: LoginPageProps): JSX.Element => {
     initialState
   );
 
-  // useEffect(() => {
-  //   renderFirebaseAuth();
-  // }, []);
-
   const toggleSignUp = () => {
     setIsSigningUp(!isSigningUp);
   };

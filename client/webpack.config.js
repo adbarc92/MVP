@@ -17,8 +17,7 @@ module.exports = {
       },
       {
         test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
-        exclude: /node_modules/
+        use: ['style-loader', 'css-loader']
 			},
 			{
         test: /\.jsx?$/,
@@ -41,11 +40,6 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('production')
-      }
-    }),
     new HtmlWebpackPlugin({
       template: 'index.html'
     }),
@@ -59,12 +53,10 @@ module.exports = {
   ],
   resolve: {
     extensions: ['.ts', '.js', '.tsx']
-  }
+	}
 };
 
 const isAnalyze = process.env.ANALYZE === 'true';
-
-console.log('isAnalyze:', isAnalyze);
 
 if (isAnalyze) {
   module.exports.plugins.push(new BundleAnalyzerPlugin());

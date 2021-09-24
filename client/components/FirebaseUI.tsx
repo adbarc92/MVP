@@ -9,17 +9,13 @@ import {
 } from 'firebase/auth';
 
 import { auth } from 'firebaseui';
-
-console.log('firebaseApp:', firebaseApp);
+import 'firebaseui/dist/firebaseui.css';
 
 const appAuth = getAuth(firebaseApp);
-
-console.log('auth:', auth);
 
 const ui = new auth.AuthUI(appAuth);
 
 const uiConfig = {
-  // Popup signin flow rather than redirect flow.
   signInFlow: 'popup',
   // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
   signInSuccessUrl: '/signedIn',
