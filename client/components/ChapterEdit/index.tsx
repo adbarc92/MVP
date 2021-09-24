@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { TextField, Checkbox, Button } from '@material-ui/core';
-import { Chapter, Book } from '../types';
+
+import TextField from '@material-ui/core/TextField';
+import Checkbox from '@material-ui/core/Checkbox';
+import Button from '@material-ui/core/Button';
+
+import { Chapter, Book } from '../../types';
 import './ChapterEdit.css';
 
 interface ChapterEditProps {

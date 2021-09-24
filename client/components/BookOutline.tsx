@@ -3,16 +3,14 @@ import axios from 'axios';
 
 import { Book, Chapter } from '../types';
 
-import {
-  List,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-  Typography,
-  Button
-} from '@material-ui/core';
+import List from '@material-ui/core/List';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
-import { ExpandMore } from '@material-ui/icons';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 interface BookOutlineProps {
   book: Book;
@@ -44,7 +42,7 @@ const BookOutline = ({
   return (
     <div>
       <Accordion>
-        <AccordionSummary expandIcon={<ExpandMore />}>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Typography>{book.name}</Typography>
         </AccordionSummary>
         {chapters

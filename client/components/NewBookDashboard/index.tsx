@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
-import { TextField, Container, Button } from '@material-ui/core';
-import { Alert } from '@material-ui/lab';
+
+import TextField from '@material-ui/core/TextField';
+import Container from '@material-ui/core/Container';
+import Button from '@material-ui/core/Button';
+
+import Alert from '@material-ui/lab/Alert';
 import { Book } from '../../types';
 import axios from 'axios';
 import './NewBookDashboard.css';

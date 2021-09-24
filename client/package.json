@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "webpack --mode development --watch",
-    "build": "webpack"
+    "watch": "webpack --config webpack.config.js --mode development --watch",
+    "analyze": "cross-env ANALYZE=true webpack --config webpack.config.js",
+    "build": "webpack --mode production --config webpack.config.js"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +22,9 @@
     "axios": "^0.21.1",
     "compression-webpack-plugin": "^9.0.0",
     "css-loader": "^6.2.0",
+    "firebase": "^9.0.0-202171919375",
+    "firebaseui": "^0.600.0-rc.0",
+    "html-webpack-plugin": "^5.3.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "style-loader": "^3.2.1",
@@ -36,6 +40,8 @@
     "@types/react-dom": "^17.0.9",
     "@typescript-eslint/eslint-plugin": "^4.29.3",
     "@typescript-eslint/parser": "^4.29.3",
+    "cross-env": "^7.0.3",
+    "dotenv-webpack": "^7.0.3",
     "eslint": "^7.32.0",
     "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-jest": "^24.4.0",

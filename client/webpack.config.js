@@ -1,8 +1,10 @@
-// import path from 'path';
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 module.exports = {
   entry: './',
@@ -15,8 +17,13 @@ module.exports = {
       },
       {
         test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
-        exclude: '/node_modules/'
+        use: ['style-loader', 'css-loader']
+			},
+			{
+        test: /\.jsx?$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+        include: path.resolve(__dirname, './src')
       }
     ]
   },
@@ -33,19 +40,24 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': JSON.stringify('production')
-      }
+    new HtmlWebpackPlugin({
+      template: 'index.html'
     }),
     new CompressionPlugin({
       algorithm: 'gzip',
       test: /\.js$|\.css$|\.html$/,
       threshold: 0,
       minRatio: 0.8
-    })
+    }),
+    new Dotenv()
   ],
   resolve: {
     extensions: ['.ts', '.js', '.tsx']
-  }
+	}
 };
+
+const isAnalyze = process.env.ANALYZE === 'true';
+
+if (isAnalyze) {
+  module.exports.plugins.push(new BundleAnalyzerPlugin());
+}
