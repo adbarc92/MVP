@@ -12,6 +12,10 @@
 
 A tool for use by fiction authors to plan out their next big work.
 
+[Deployment](https://adb-outlinear.herokuapp.com/)
+
+## Demo
+
 ![Example](https://user-images.githubusercontent.com/42557448/133675481-c3cd7bde-2d5f-4b04-a6a9-ee5b5df56a6f.gif)
 
 ## Requirements
