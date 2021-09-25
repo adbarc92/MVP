@@ -8,7 +8,8 @@
 
 <img height="32" width="32" align="left" src='https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/postgresql/postgresql.png' />
 
-"Helps straight think you."
+
+"Helps straight think you." - Gonzaga University Coffee Shop
 
 A tool for use by fiction authors to plan out their next big work.
 
