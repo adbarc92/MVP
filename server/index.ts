@@ -6,6 +6,7 @@ import { initConnection } from './database';
 
 import BooksController from './controllers/books.controller';
 import ChaptersController from './controllers/chapters.controller';
+import NodesController from './controllers/nodes.controller';
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -27,14 +28,7 @@ const init = async () => {
     if (connection) {
       app.use(BooksController(connection));
       app.use(ChaptersController(connection));
-
-      // app.post('/section', (req: Request, res: Response) => {});
-      // app.get('/section/:id', (req: Request, res: Response) => {});
-      // app.put('/section/:id', (req: Request, res: Response) => {});
-
-      // app.post('/node', (req: Request, res: Response) => {});
-      // app.get('/node/:id', (req: Request, res: Response) => {});
-      // app.put('/node/:id', (req: Request, res: Response) => {});
+      app.use(NodesController(connection));
     } else {
       throw new Error('Connection could not be established');
     }

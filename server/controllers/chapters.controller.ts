@@ -1,11 +1,11 @@
-import express, { Request, Response, Router } from 'express';
+import { Request, Response, Router } from 'express';
 import { Connection } from 'typeorm';
 import { Book, Chapter } from '../database/models';
 import { validateRequestStrings } from '../utils';
 import { GetOneParams, ChapterPost, ChapterPut } from './types';
 
 const ChaptersController = (connection: Connection): Router => {
-  const chapterRouter = express.Router();
+  const chapterRouter = Router();
 
   chapterRouter
     .route('/chapters')
