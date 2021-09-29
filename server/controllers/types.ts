@@ -7,10 +7,6 @@ export interface GetOneParams {
   id: string;
 }
 
-export interface getChapterParams {
-  bookId: string;
-}
-
 export interface BookPut {
   name: string;
   sequenceNum: number;
