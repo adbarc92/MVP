@@ -18,8 +18,8 @@ module.exports = {
       {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader']
-			},
-			{
+      },
+      {
         test: /\.jsx?$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
@@ -53,7 +53,7 @@ module.exports = {
   ],
   resolve: {
     extensions: ['.ts', '.js', '.tsx']
-	}
+  }
 };
 
 const isAnalyze = process.env.ANALYZE === 'true';

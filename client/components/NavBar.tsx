@@ -1,6 +1,6 @@
-import AppBar from '@material-ui/core/AppBar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+import AppBar from '@mui/material/AppBar';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 
 import {
   getAuth,

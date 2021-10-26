@@ -1,13 +1,13 @@
 import React, { useState, useReducer } from 'react';
 
-import Box from '@material-ui/core/Box';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Container from '@mui/material/Container';
 
 import {
   getAuth,
@@ -15,10 +15,10 @@ import {
   createUserWithEmailAndPassword,
   User as FirebaseUser,
   AuthError,
-  Auth,
+  Auth
 } from 'firebase/auth';
 
-import { Alert } from '@material-ui/lab';
+import Alert from '@mui/material/Alert';
 
 import { renderFirebaseAuth } from './FirebaseUI';
 
@@ -45,7 +45,7 @@ const initialState: LoginState = {
   email: '',
   password: '',
   triedSubmit: false,
-  errors: [],
+  errors: []
 };
 
 const inputReducer = (
@@ -56,13 +56,13 @@ const inputReducer = (
     case 'field': {
       return {
         ...state,
-        [action.name]: action.value,
+        [action.name]: action.value
       };
     }
     case 'submit': {
       return {
         ...state,
-        triedSubmit: true,
+        triedSubmit: true
       };
     }
     case 'error': {
@@ -70,8 +70,8 @@ const inputReducer = (
         ...state,
         errors: [
           ...state.errors,
-          { code: action.name, message: action.value },
-        ],
+          { code: action.name, message: action.value }
+        ]
       };
     }
     case 'reset': {
@@ -110,7 +110,7 @@ const LoginPage = ({ setUser }: LoginPageProps): JSX.Element => {
     dispatch({
       type: 'error',
       name: errorCode,
-      value: errorMessage,
+      value: errorMessage
     });
   };
 
@@ -154,7 +154,7 @@ const LoginPage = ({ setUser }: LoginPageProps): JSX.Element => {
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center',
+          alignItems: 'center'
         }}
         onSubmit={handleSubmit}
       >

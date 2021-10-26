@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+import Card from '@mui/material/Card';
 
 import BookOutline from '../BookOutline';
 import ChapterEdit from '../ChapterEdit';
