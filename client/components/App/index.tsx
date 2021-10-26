@@ -7,15 +7,15 @@ import {
 } from 'firebase/auth';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import NewBookDashboard from './components/NewBookDashboard';
-import BookDisplay from './components/BookDisplay';
-import BookSelect from './components/BookSelect';
-import LoginPage from './components/LoginPage';
-import NavBar from './components/NavBar';
-import { Book } from './types';
+import NewBookDashboard from '../NewBookDashboard';
+import BookDisplay from '../BookDisplay';
+import BookSelect from '../BookSelect';
+import LoginPage from '../LoginPage';
+import NavBar from '../NavBar';
+import { Book } from '../../types';
 import './App.css';
 
-import firebaseApp from './firebaseInit';
+import firebaseApp from '../../firebaseInit';
 
 const App = (): JSX.Element => {
   const [books, setBooks] = React.useState<Book[]>([]);
