@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 import TextField from '@material-ui/core/TextField';
-import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 
 import Alert from '@material-ui/lab/Alert';
@@ -11,10 +10,14 @@ import './NewBookDashboard.css';
 
 interface NewBookDashboardProps {
   setBooks: (books: Book[]) => void;
+  setCreatingBook: (bookState: boolean) => void;
+  books: Book[];
 }
 
 const NewBookDashboard = ({
-  setBooks
+  setBooks,
+  books,
+  setCreatingBook
 }: NewBookDashboardProps): JSX.Element => {
   const [name, setName] = useState('');
   const [textBody, setTextBody] = useState('');
@@ -67,6 +70,17 @@ const NewBookDashboard = ({
       <Button variant='contained' onClick={handleClick}>
         Submit
       </Button>
+      {books && (
+        <Button
+          variant='contained'
+          color='secondary'
+          onClick={() => {
+            setCreatingBook(false);
+          }}
+        >
+          View Books
+        </Button>
+      )}
     </div>
   );
 };

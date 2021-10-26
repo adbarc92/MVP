@@ -22,6 +22,7 @@ const App = (): JSX.Element => {
   const [loading, setLoading] = useState(true);
   const [currentBook, setCurrentBook] = useState<Book | null>(null);
   const [user, setUser] = useState<FirebaseUser | null>(null);
+  const [creatingBook, setCreatingBook] = useState(true);
 
   useEffect(() => {
     const auth = getAuth(firebaseApp);
@@ -36,6 +37,7 @@ const App = (): JSX.Element => {
         .get('/books')
         .then((results) => {
           setBooks(results.data);
+          setCreatingBook(!!books.length); // ??
           setLoading(false);
         })
         .catch((err) => {
@@ -63,13 +65,18 @@ const App = (): JSX.Element => {
                 />
               ) : (
                 <>
-                  {books.length ? (
+                  {creatingBook ? (
+                    <NewBookDashboard
+                      setBooks={setBooks}
+                      books={books}
+                      setCreatingBook={setCreatingBook}
+                    />
+                  ) : (
                     <BookSelect
                       setBook={setCurrentBook}
                       books={books}
+                      setCreatingBook={setCreatingBook}
                     />
-                  ) : (
-                    <NewBookDashboard setBooks={setBooks} />
                   )}
                 </>
               )}
