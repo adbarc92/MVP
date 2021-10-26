@@ -1,6 +1,8 @@
 import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
 
 import {
   getAuth,
@@ -28,17 +30,28 @@ const NavBar = ({ setUser, user }: NavBarProps): JSX.Element => {
 
   return (
     <AppBar position='static'>
-      <Typography
-        style={{
-          fontFamily: 'fantasy',
-          fontSize: '3rem'
-        }}
-      >
-        Out-Linear
-      </Typography>
-      {user ? (
-        <Button onClick={handleSignOut}>Sign Out</Button>
-      ) : null}
+      <Toolbar variant='regular'>
+        <Typography
+          style={{
+            fontFamily: 'fantasy',
+            fontSize: '3rem'
+          }}
+          sx={{ flexGrow: 1 }}
+        >
+          Out-Linear
+        </Typography>
+        {user ? (
+          <IconButton>
+            <Button
+              variant='contained'
+              onClick={handleSignOut}
+              disableElevation
+            >
+              Sign Out
+            </Button>
+          </IconButton>
+        ) : null}
+      </Toolbar>
     </AppBar>
   );
 };
