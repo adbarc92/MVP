@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
-import Alert from '@material-ui/lab/Alert';
+import Alert from '@mui/material/Alert';
 import { Book } from '../../types';
 import axios from 'axios';
 import './NewBookDashboard.css';
@@ -39,7 +39,7 @@ const NewBookDashboard = ({
 
   return (
     <div className='book-dashboard'>
-      <h1>Add a book to Outlinear</h1>
+      <h1>Add a book to Out-Linear</h1>
       <TextField
         margin='normal'
         label='Title Your Book!'
