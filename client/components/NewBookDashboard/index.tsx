@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-
 import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
+
 import { Book } from '../../types';
 import axios from 'axios';
 import './NewBookDashboard.css';
@@ -67,20 +68,22 @@ const NewBookDashboard = ({
         <Alert severity='error'>Summary cannot be empty</Alert>
       ) : null}
 
-      <Button variant='contained' onClick={handleClick}>
-        Submit
-      </Button>
-      {books && (
-        <Button
-          variant='contained'
-          color='secondary'
-          onClick={() => {
-            setCreatingBook(false);
-          }}
-        >
-          View Books
+      <Stack spacing={2}>
+        <Button variant='contained' onClick={handleClick}>
+          Submit
         </Button>
-      )}
+        {!!books.length && (
+          <Button
+            variant='contained'
+            color='secondary'
+            onClick={() => {
+              setCreatingBook(false);
+            }}
+          >
+            View Books
+          </Button>
+        )}
+      </Stack>
     </div>
   );
 };
