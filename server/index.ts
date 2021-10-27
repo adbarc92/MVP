@@ -40,7 +40,7 @@ const init = async () => {
 const start = async () => {
   await init();
   app.listen(PORT, () => {
-    console.log(`Server running on port:${PORT}`);
+    console.log(`Server running on port ${PORT}`);
   });
 };
 

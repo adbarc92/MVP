@@ -33,11 +33,13 @@ A tool for use by fiction authors to plan out their next big work.
 ## Changelog
 
 * Future Features:
-	* Multiple book management
 	* Modularized Data Structures on the back-end
 	* Book title editing
 	* Character, Location, Concept Nodes
+	* Go and GraphQL Backend
 
+* Patch 1.2
+	* Multiple book management
 * Patch 1.1
 	* Adds Authentication via Firebase
 * Patch 1.0

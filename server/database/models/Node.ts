@@ -4,10 +4,16 @@ import {
   Column,
   UpdateDateColumn,
   CreateDateColumn,
-  OneToOne
+  TreeParent,
+  TreeChildren,
+  Tree,
+  ManyToOne
 } from 'typeorm';
 
-@Entity()
+import { Owner } from './Owner';
+
+@Tree('materialized-path')
+@Entity({ name: 'Node' })
 export class Node {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
@@ -23,4 +29,13 @@ export class Node {
 
   @Column({ type: 'text' })
   description!: string;
+
+  @TreeParent()
+  parent!: Node;
+
+  @TreeChildren()
+  children!: Node[];
+
+  @ManyToOne(() => Owner, owner => owner.nodes)
+  owner!: Owner;
 }
