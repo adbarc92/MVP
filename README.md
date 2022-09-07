@@ -47,7 +47,8 @@ DB_NAME=<YOUR_DB_NAME>
 	* Modularized Data Structures on the back-end
 	* Book title editing
 	* Character, Location, Concept Nodes
-
+* Patch 1.2
+	* Adds default configuration options for database connection.
 * Patch 1.1
 	* Adds Authentication via Firebase
 * Patch 1.0
