@@ -23,6 +23,16 @@ A tool for use by fiction authors to plan out their next big work.
 
 - A running [PostgreSQL installation](https://www.postgresql.org/download/) with a database named "outlinear", a user named 'postgres' and a password, 'postgres'
 - A `config.ts` located in the `server` directory with a configuration matching the example
+- Optionally, a `.env` file in the root directory that specifies a connection name, host, port, username, password, and database in the following format:
+```
+DB_CONNECTION_NAME=default
+DB_TYPE=postgres
+DB_HOST=<YOUR_HOST>
+DB_PORT=5432
+DB_USERNAME=<YOUR_USERNAME>
+DB_PASSWORD=<YOUR_PASSWORD>
+DB_NAME=<YOUR_DB_NAME>
+```
 
 ## Run Instructions
 
